@@ -1,0 +1,31 @@
+#:kivy 2.2.1
+
+MDBoxLayout:
+    orientation: "vertical"
+    MDTopAppBar:
+        title: "Course Scheduler"
+
+    MDBottomNavigation:
+
+        MDBottomNavigationItem:
+            name: "adding_screen"
+            text: "Courses"
+            icon: "book-plus-multiple-outline"
+
+            MDFloatLayout:
+
+                AddCourseGroup:
+                    pos_hint: {"top": 1}
+                    size_hint: 1, None
+                    height: "80dp"
+
+
+        MDBottomNavigationItem:
+            name: "viewing_screen"
+            text: "Schedules"
+            icon: "timetable"
+
+        MDBottomNavigationItem:
+            name: "settings_screen"
+            text: "Settings"
+            icon: "tune-vertical"

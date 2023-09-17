@@ -1,0 +1,23 @@
+#:kivy 2.2.1
+
+<AddCourseGroup>:
+    rows: 1
+    padding: "10dp"
+    spacing: "4dp"
+
+    MDTextField:
+        id: course_identifier
+        size_hint: 0.8, 1
+        elevation: 2
+        hint_text: "Course Identifier"
+        mode: "rectangle"
+        on_text: root.validate_course(course_identifier, course_submit)
+
+    MDFillRoundFlatIconButton: 
+        id: course_submit
+        text: "Course"
+        icon: "plus"
+        size_hint: 0.2, 0.9
+        elevation: 2
+        disabled: True
+        on_release: root.add_new_course(course_identifier)
