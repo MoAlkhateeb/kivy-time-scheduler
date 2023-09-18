@@ -10,14 +10,21 @@ from kivy.core.window import Window
 Window.size = (360, 600)
 
 
+class ClassSlot(MDBoxLayout):
+    """Holds the class Type, Day, Start Time and End Time"""
+
+    pass
+
+
 class CourseGroup(MDCard):
     """Holds the course group name and the classes in the group"""
 
     course_label = ObjectProperty(None)
+    slots = ObjectProperty(None)
 
     def __init__(self, text, **kwargs):
         super().__init__(**kwargs)
-        self.course_label.text = text
+        self.course_label.text = f"[b]{text.upper()}[/b]"
 
 
 class AddCourseGroup(MDBoxLayout):
@@ -29,8 +36,9 @@ class AddCourseGroup(MDBoxLayout):
         super().__init__(**kwargs)
 
     def validate_course(self, course_identifier, submit_button):
-        course_identifier.text = course_identifier.text.strip()
-        if not course_identifier.text or len(course_identifier.text) > 70:
+        course_identifier.text = course_identifier.text.lstrip()
+        text = course_identifier.text.rstrip()
+        if not text or len(text) > 70:
             submit_button.disabled = True
             course_identifier.text = ""
             return False
