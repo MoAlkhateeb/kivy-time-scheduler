@@ -1,5 +1,7 @@
 from kivymd.app import MDApp
 from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.card import MDCard
+from kivy.properties import ObjectProperty
 from kivy.lang import Builder
 
 from kivy.core.window import Window
@@ -8,14 +10,23 @@ from kivy.core.window import Window
 Window.size = (360, 600)
 
 
+class CourseGroup(MDCard):
+    """Holds the course group name and the classes in the group"""
+
+    course_label = ObjectProperty(None)
+
+    def __init__(self, text, **kwargs):
+        super().__init__(**kwargs)
+        self.course_label.text = text
+
+
 class AddCourseGroup(MDBoxLayout):
+    """Holds the input and submit button for a course group"""
+
+    course_groups = []
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def add_new_course(self, course_identifier):
-        ## TODO: add course to database
-        print(course_identifier.text)
-        course_identifier.text = ""
 
     def validate_course(self, course_identifier, submit_button):
         course_identifier.text = course_identifier.text.strip()
@@ -28,6 +39,8 @@ class AddCourseGroup(MDBoxLayout):
 
 
 class CourseSchedulingApp(MDApp):
+    courses = []
+
     def build(self):
         self.theme_cls.primary_palette = "Teal"
         self.theme_cls.theme_style = "Dark"
@@ -37,6 +50,13 @@ class CourseSchedulingApp(MDApp):
 
     def load_all_kv_files(self) -> None:
         super().load_all_kv_files("libs")
+
+    def add_new_course(self, course_identifier):
+        ## TODO: add course to database
+        course = CourseGroup(course_identifier.text)
+        self.courses.append(course)
+        self.root.ids.course_grid.add_widget(course)
+        course_identifier.text = ""
 
 
 if __name__ == "__main__":

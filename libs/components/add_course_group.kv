@@ -1,5 +1,14 @@
 #:kivy 2.2.1
 
+<CourseGroup>:
+    course_label: course_label
+    MDFloatLayout:
+        MDLabel:
+            id: course_label
+            pos_hint: {"center_x": 0.5, "top": 0.9}
+            size: self.texture_size
+
+
 <AddCourseGroup>:
     rows: 1
     padding: "10dp"
@@ -20,4 +29,4 @@
         size_hint: 0.2, 0.9
         elevation: 2
         disabled: True
-        on_release: root.add_new_course(course_identifier)
+        on_release: app.add_new_course(course_identifier)

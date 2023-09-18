@@ -1,6 +1,8 @@
 #:kivy 2.2.1
 
 MDBoxLayout:
+    course_grid: course_grid
+
     orientation: "vertical"
     MDTopAppBar:
         title: "Course Scheduler"
@@ -19,6 +21,17 @@ MDBoxLayout:
                     size_hint: 1, None
                     height: "80dp"
 
+                MDScrollView:
+                    do_scroll_x: False
+                    bar_width: 0
+                    pos_hint: {"top": 0.82}
+                    size_hint: 1, 0.82      
+                    MDGridLayout:
+                        id: course_grid
+                        cols: 1
+                        adaptive_height: True
+                        padding: "10dp"
+                        spacing: "10dp"
 
         MDBottomNavigationItem:
             name: "viewing_screen"
