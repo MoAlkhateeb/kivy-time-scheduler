@@ -1,13 +1,78 @@
 #:kivy 2.2.1
 
+<ClassSlot>:
+    class_type: class_type 
+    day: day
+    start_time: start_time
+    end_time: end_time
+
+    orientation: "vertical"
+    size_hint: 0.8, None
+    height: self.minimum_height
+    padding: "10dp"
+    pos_hint: {"center_x": 0.5}
+    
+    MDBoxLayout:
+        MDTextField:
+            id: class_type
+            hint_text: "Class Type"
+        MDIconButton:
+            icon: "delete"
+            on_release: root.delete_slot()
+
+    MDBoxLayout:
+        orientation: "horizontal"
+        pos_hint: {"center_x": .5}
+        size_hint: None, None
+        size: self.minimum_size
+        spacing: "10dp"
+
+        MDRectangleFlatButton:
+            id: day
+            size_hint: None, None
+            width: "200dp"
+            text: "Day"
+            halign: "center"
+            on_release: root.show_days_menu(self)
+        
+        MDSeparator:
+            orientation: "vertical"
+
+        MDRectangleFlatButton:
+            id: start_time
+            text: "Start Time"
+            halign: "center"
+            on_release: root.show_time_picker("Pick Start Time")
+        
+        MDLabel:
+            text: "-"
+
+        MDRectangleFlatButton:
+            id: end_time
+            text: "End Time"
+            halign: "center"
+            on_release: root.show_time_picker("Pick End Time")
+
+
 <CourseGroup>:
     slots: slots
     course_label: course_label
-    MDFloatLayout:
+    
+    id: card
+    size_hint: 0.8, None
+    height: course_label.height + slots.height + add_slot.height + 80
+    adaptive_height: True
+    padding: "10dp"
+    spacing: "4dp"
+
+    MDRelativeLayout:
+        pos_hint: {"center_x": 0.5}
+
         MDLabel:
             id: course_label
             markup: True
-            pos_hint: {"center_x": 0.5, "top": 0.9}
+            pos_hint: {"center_x": 0.5}
+            pos: 0, card.height - self.texture_size[1] - 25
             size_hint_y: None
             height: self.texture_size[1]
             halign: 'center'
@@ -15,6 +80,19 @@
         MDBoxLayout: 
             id: slots
             orientation: "vertical"
+            size_hint_y: None
+            height: self.minimum_height
+            spacing: "40dp"
+            padding: "10dp"
+            pos_hint: {"center_x": 0.5}
+            pos: 0, add_slot.y + add_slot.height
+        
+        MDRaisedButton:
+            id: add_slot
+            text: "Add more slots"
+            pos_hint: {'center_x': .5}
+            pos: 0, 2
+            on_release: root.add_class_slot()
 
 
 <AddCourseGroup>:
